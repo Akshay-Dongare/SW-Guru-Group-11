@@ -13,6 +13,14 @@ class TestSEPrinciples(unittest.TestCase):
         """
         functions = inspect.getmembers(wc0_fixed, inspect.isfunction)
         for name, func in functions:
+            # Ignore Python internal functions (like __annotate__)
+            if name.startswith("__"):
+                continue
+
+            # Ensure we only check functions defined in this file (not imports)
+            if func.__module__ != wc0_fixed.__name__:
+                continue
+
             lines = inspect.getsourcelines(func)[0]
             line_count = len(lines)
             
@@ -66,12 +74,12 @@ class TestInfrastructure(unittest.TestCase):
     def test_full_loader(self):
         """Integration test: Create a dummy file and load it."""
         filename = "test_config.yaml"
-        content =  """
-                    punct: "@#"
-                    stopwords:
-                    - foo
-                    - bar
-                """
+        content = """
+        punct: "@#"
+        stopwords:
+        - foo
+        - bar
+        """
         # 1. Create dummy file
         with open(filename, "w") as f:
             f.write(content)
