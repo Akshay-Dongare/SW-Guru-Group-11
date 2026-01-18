@@ -1,0 +1,10 @@
+The quick brown fox jumps over the lazy dog. The dog was very lazy and the fox was very quick. 
+In software engineering, the principle of separation of concerns is very important. The principle 
+states that software should be organized so that each part addresses a separate concern. When we 
+separate concerns, we make software easier to maintain and easier to understand. The separation 
+of concerns principle is fundamental to good software design. Many design patterns exist to help 
+with the separation of concerns. For example, the Model-View-Controller pattern separates the 
+data model from the user interface and the control logic. Another example is the separation of 
+business logic from presentation logic. These separations make the code more modular and more 
+testable. Good software engineering practices always emphasize the importance of separating 
+different concerns into different modules or components.

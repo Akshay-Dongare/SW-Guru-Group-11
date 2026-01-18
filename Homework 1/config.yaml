@@ -1,0 +1,22 @@
+# config.yaml - Policy Definition
+punct: ".,!?;:\"()[]"
+stopwords:
+  - the
+  - a
+  - an
+  - and
+  - or
+  - but
+  - in
+  - on
+  - at
+  - to
+  - for
+  - of
+  - is
+  - was
+  - are
+  - were
+  - be
+  - been
+  - with

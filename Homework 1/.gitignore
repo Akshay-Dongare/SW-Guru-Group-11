@@ -1,0 +1,10 @@
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Mac OS metadata
+.DS_Store
+
+# Temporary output artifacts
+before.txt
+after.txt
