@@ -80,20 +80,42 @@ class TestInfrastructure(unittest.TestCase):
         - foo
         - bar
         """
-        # 1. Create dummy file
+        # Create dummy file
         with open(filename, "w") as f:
             f.write(content)
             
         try:
-            # 2. Test the loader
+            # Test the loader
             policy = wc0_fixed.load_policy_backpacking(filename)
             self.assertEqual(policy["punct"], "@#")
             self.assertIn("foo", policy["stopwords"])
             self.assertIn("bar", policy["stopwords"])
         finally:
-            # 3. Cleanup
+            # Cleanup
             if os.path.exists(filename):
                 os.remove(filename)
+    
+    def test_load_stopwords_file_valid(self):
+        """Bonus 2 Test: Verify loading from a flat text file."""
+        filename = "dummy_stopwords.txt"
+        # Create a messy file with whitespace and empty lines
+        content = "the\n  and  \n\nof\n"
+        
+        with open(filename, "w") as f:
+            f.write(content)
+            
+        try:
+            # Test: Should strip whitespace and ignore empty lines
+            result = wc0_fixed.load_stopwords_file(filename)
+            self.assertEqual(result, {"the", "and", "of"})
+        finally:
+            if os.path.exists(filename):
+                os.remove(filename)
+
+    def test_load_stopwords_file_missing(self):
+        """Bonus 2 Test: Verify graceful failure (empty set) if file missing."""
+        result = wc0_fixed.load_stopwords_file("non_existent_ghost.txt")
+        self.assertEqual(result, set())
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
