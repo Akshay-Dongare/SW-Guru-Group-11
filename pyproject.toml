@@ -1,0 +1,21 @@
+[project]
+name = "sw-guru-homeworks"
+version = "0.1.0"
+description = "Monorepo for ALL SW Guru HWs"
+authors = [
+    {name = "Akshay Dongare",email = "akshay@akshaydongare.com"}
+]
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pylint (>=4.0.4,<5.0.0)"
+]
