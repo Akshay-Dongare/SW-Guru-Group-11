@@ -1,5 +1,7 @@
 # Homework 1: Word Frequency Refactor
 
+[![HW1 - Word Frequency Refactor](https://github.com/Akshay-Dongare/SW-Guru-Group-11/actions/workflows/hw1-grading.yml/badge.svg?branch=main)](https://github.com/Akshay-Dongare/SW-Guru-Group-11/actions/workflows/hw1-grading.yml)
+
 **Student:** Akshay Ashutosh Dongare, Ryan Mikula
 
 **Course:** CSC491/591 - Software Guru
@@ -59,3 +61,20 @@ Internationalization: Spanish support via stopwords_es.txt.
 
 ### 4. Manual Verification
 Alternatively, you can manually toggle the flags in wc0_fixed.py
+
+---
+
+## 🤖 Continuous Integration (GitHub Actions)
+This project uses a Conditional Monorepo Workflow to ensure code quality.
+
+Workflow File: .github/workflows/hw1-grading.yml
+
+Trigger: Runs only when files in the Homework 1/ directory are modified.
+
+Jobs:
+
+Linting: Runs pylint with a strict failure threshold of 8.0/10.
+
+Grading: Runs make (Regression Testing + Unit Tests).
+
+Smoke Test: Runs make bonus-demo to ensure feature flags function correctly.
