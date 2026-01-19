@@ -1,6 +1,7 @@
 # Homework 1: Word Frequency Refactor
 
 **Student:** Akshay Ashutosh Dongare, Ryan Mikula
+
 **Course:** CSC491/591 - Software Guru
 
 ## 📝 Overview
