@@ -1,24 +1,27 @@
-# Root Makefile - The "Commander"
-# Orchestrates build and quality checks across all homework assignments.
-
-# Define all homework directories here (add "Homework 2" when ready)
-# We use wildcard to handle spaces, or just quote them explicitly
+# Root Makefile - The "Commander" (Poetry Edition)
 PROJECTS = "Homework 1"
 
-.PHONY: all lint test clean help
+.PHONY: all lint test check clean help install
 
 help:
 	@echo "Available commands:"
-	@echo "  make lint   - Run Pylint across all projects"
-	@echo "  make test   - Run unit tests for all projects"
-	@echo "  make check  - Run full verification (lint + test)"
-	@echo "  make clean  - Remove artifacts"
+	@echo "  make install - Install dependencies via Poetry"
+	@echo "  make lint    - Run Pylint (via Poetry)"
+	@echo "  make test    - Run unit tests"
+	@echo "  make check   - Run full verification"
+	@echo "  make clean   - Remove artifacts"
+
+# 0. Setup
+# "Guru" Check: Ensures poetry is installed before trying to run it
+install:
+	@echo ">>> 📦 Installing Dependencies..."
+	poetry install
 
 # 1. Repo-Wide Linting
-# Runs pylint using the root .pylintrc configuration
+# Uses 'poetry run' to execute pylint from the virtual env
 lint:
 	@echo "\n>>> 🔍 Running Global Lint Check..."
-	pylint $(PROJECTS) --rcfile=.pylintrc
+	poetry run pylint $(PROJECTS) --rcfile=.pylintrc
 
 # 2. Repo-Wide Testing
 # Iterates through directories and runs their specific test suites
@@ -29,7 +32,7 @@ test:
 		$(MAKE) -C "$$dir" check || exit 1; \
 	done
 
-# 3. Full Check (CI Simulation)
+# 3. Full Check
 check: lint test
 	@echo "\n>>> ✅ All Systems Go!"
 
