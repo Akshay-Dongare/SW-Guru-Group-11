@@ -1,15 +1,18 @@
 name: HW1 - Word Frequency Refactor
 
 on:
+  # Allow manual trigger from the UI
+  workflow_dispatch: 
+
   push:
     paths:
       - 'Homework 1/**'
-      - 'pyproject.toml' # Run if dependencies change!
+      - 'pyproject.toml'
       - 'poetry.lock'
   pull_request:
     paths:
       - 'Homework 1/**'
-
+      
 env:
   HW_DIR: "Homework 1"
 
