@@ -1,6 +1,7 @@
 # 🎓 CSC491/591: Software Engineering Guru - Homework Repository
 
 **Students:** Akshay Ashutosh Dongare, Ryan Mikula
+
 **Semester:** Spring 2026  
 
 Welcome to my submission repository. Below you will find links to individual homework assignments, including source code, tests, and documentation.
