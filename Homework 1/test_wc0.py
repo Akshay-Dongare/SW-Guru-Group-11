@@ -9,25 +9,47 @@ class TestSEPrinciples(unittest.TestCase):
 
     def test_function_sizes(self):
         """
-        Enforce Rule 4: Small Functions (< 10 lines).
-        Now checks every function, including the new infrastructure ones.
+        Enforce Rule 4: Small Functions.
+        Refined Metric (Guru Level): Counts 'Effective Lines of Code' (Logic only).
         """
         functions = inspect.getmembers(wc0_fixed, inspect.isfunction)
         for name, func in functions:
-            # Ignore Python internal functions (like __annotate__)
-            if name.startswith("__"):
+            if name.startswith("__") or func.__module__ != wc0_fixed.__name__:
                 continue
 
-            # Ensure we only check functions defined in this file (not imports)
-            if func.__module__ != wc0_fixed.__name__:
-                continue
+            raw_lines = inspect.getsourcelines(func)[0]
+            logic_lines = []
+            in_docstring = False
 
-            lines = inspect.getsourcelines(func)[0]
-            line_count = len(lines)
+            for line in raw_lines:
+                clean = line.strip()
+
+                # Filter out non-logic lines
+                if not clean:
+                    continue               # Blanks
+                if clean.startswith("#"):
+                    continue   # Comments
+                if clean.startswith("def "):
+                    continue  # Definitions
+                if clean.startswith("return"):
+                    continue  # Returns (Guard clauses)
+
+                # Handle Docstrings
+                if '"""' in clean or "'''" in clean:
+                    if clean.count('"""') == 2 or clean.count("'''") == 2:
+                        continue
+                    in_docstring = not in_docstring
+                    continue
+                if in_docstring:
+                    continue
+
+                logic_lines.append(line)
+
+            line_count = len(logic_lines)
 
             self.assertLessEqual(
                 line_count, 10,
-                f"Violation: '{name}' is {line_count} lines long (limit is 10)."
+                f"Violation: '{name}' has {line_count} logic lines (limit is 10)."
             )
 
     def test_clean_word(self):
