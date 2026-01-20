@@ -60,13 +60,14 @@ Install all dependencies (including the linter and formatter):
 ```bash
 make install
 ```
-1. Auto-Formatting
+
+### 2. Auto-Formatting
 To automatically fix whitespace, indentation, and style violations:
 ```bash
 poetry run autopep8 --in-place --aggressive --recursive "Homework 1"
 ```
 
-1. Verify Quality
+### 3. Verify Quality
 To run the full repo-wide check (Target Score: > 8.0/10):
 ```bash
 make lint
