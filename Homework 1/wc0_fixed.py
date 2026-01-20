@@ -89,6 +89,10 @@ if CONFIG.get("load_external_stopwords"):
 # MECHANISM LAYER (The "Dumb Center") - Model & Logic
 # =============================================================================
 
+# Q4: Any small Function problems? How to fix?
+# AQ4: Yes, the original had one massive function. We fixed this by breaking 
+#      it into small, atomic generators (like stream_lines) that are under 
+#      10 lines of code and do exactly one thing.
 def stream_lines(filepath: str) -> Iterator[str]:
     """
     Generator: Yields file content one line at a time.
@@ -107,6 +111,10 @@ def stream_words(lines: Iterator[str]) -> Iterator[str]:
         for word in line.lower().split():
             yield word
 
+# Q3: Mechanism vs Policy issues? Can you find them?
+# AQ3: The original hardcoded punctuation. Here, 'clean_word' is the pure mechanism 
+#      (it strips characters), but the POLICY (which characters to strip) is injected 
+#      via CONFIG["punct"], allowing behavior changes without editing code.
 def clean_word(word: str) -> str:
     """Removes punctuation from edges of a word."""
     # Uses the punctuation string loaded from config.yaml
