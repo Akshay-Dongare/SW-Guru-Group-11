@@ -17,5 +17,6 @@ build-backend = "poetry.core.masonry.api"
 
 [dependency-groups]
 dev = [
-    "pylint (>=4.0.4,<5.0.0)"
+    "pylint (>=4.0.4,<5.0.0)",
+    "autopep8 (>=2.3.2,<3.0.0)"
 ]

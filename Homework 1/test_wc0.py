@@ -3,6 +3,7 @@ import inspect
 import os
 import wc0_fixed
 
+
 class TestSEPrinciples(unittest.TestCase):
     """Verifies Software Engineering Heuristics."""
 
@@ -23,9 +24,9 @@ class TestSEPrinciples(unittest.TestCase):
 
             lines = inspect.getsourcelines(func)[0]
             line_count = len(lines)
-            
+
             self.assertLessEqual(
-                line_count, 10, 
+                line_count, 10,
                 f"Violation: '{name}' is {line_count} lines long (limit is 10)."
             )
 
@@ -50,26 +51,26 @@ class TestInfrastructure(unittest.TestCase):
         policy = {}
         # Simulate reading: punct: ".,!"
         mode = wc0_fixed.parse_line('punct: ".,!"', policy, None)
-        
+
         self.assertEqual(policy["punct"], ".,!")
-        self.assertIsNone(mode) # Should not enter list mode
+        self.assertIsNone(mode)  # Should not enter list mode
 
     def test_parse_line_stopwords(self):
         """Test parsing the start of a list block."""
         policy = {}
         # Simulate reading: stopwords:
         mode = wc0_fixed.parse_line("stopwords:", policy, None)
-        
-        self.assertEqual(mode, "stopwords") # Should enter list mode
+
+        self.assertEqual(mode, "stopwords")  # Should enter list mode
 
     def test_parse_line_item(self):
         """Test parsing a list item."""
         policy = {"stopwords": set()}
         # Simulate reading: - the
         mode = wc0_fixed.parse_line("- the", policy, "stopwords")
-        
+
         self.assertIn("the", policy["stopwords"])
-        self.assertEqual(mode, "stopwords") # Should stay in list mode
+        self.assertEqual(mode, "stopwords")  # Should stay in list mode
 
     def test_full_loader(self):
         """Integration test: Create a dummy file and load it."""
@@ -83,7 +84,7 @@ class TestInfrastructure(unittest.TestCase):
         # Create dummy file
         with open(filename, "w") as f:
             f.write(content)
-            
+
         try:
             # Test the loader
             policy = wc0_fixed.load_policy_backpacking(filename)
@@ -94,16 +95,16 @@ class TestInfrastructure(unittest.TestCase):
             # Cleanup
             if os.path.exists(filename):
                 os.remove(filename)
-    
+
     def test_load_stopwords_file_valid(self):
         """Bonus 2 Test: Verify loading from a flat text file."""
         filename = "dummy_stopwords.txt"
         # Create a messy file with whitespace and empty lines
         content = "the\n  and  \n\nof\n"
-        
+
         with open(filename, "w") as f:
             f.write(content)
-            
+
         try:
             # Test: Should strip whitespace and ignore empty lines
             result = wc0_fixed.load_stopwords_file(filename)
@@ -116,6 +117,7 @@ class TestInfrastructure(unittest.TestCase):
         """Bonus 2 Test: Verify graceful failure (empty set) if file missing."""
         result = wc0_fixed.load_stopwords_file("non_existent_ghost.txt")
         self.assertEqual(result, set())
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

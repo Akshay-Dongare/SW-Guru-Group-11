@@ -1,5 +1,8 @@
 [MASTER]
-# Allow loading plugins if needed
+# Ignore the legacy spaghetti code so it doesn't tank our score
+ignore=wc0.py
+
+# We don't need any plugins for this assignment, so leave this empty
 load-plugins=
 
 [MESSAGES CONTROL]

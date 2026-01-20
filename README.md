@@ -48,3 +48,26 @@ Refactored a legacy "spaghetti code" script into a modular, clean architecture.
 ## 🛠️ How to Grade
 1.  Navigate to the specific assignment folder (e.g., expand the section above or use the table).
 2.  Follow the instructions in that folder's `README.md` or run `make` if available.
+
+---
+
+## 🔧 Development & Code Quality
+
+We use **Poetry** to manage dependencies and **Pylint** to enforce strict code quality (Guru Standards).
+
+### 1. Setup
+Install all dependencies (including the linter and formatter):
+```bash
+make install
+```
+1. Auto-Formatting
+To automatically fix whitespace, indentation, and style violations:
+```bash
+poetry run autopep8 --in-place --aggressive --recursive "Homework 1"
+```
+
+1. Verify Quality
+To run the full repo-wide check (Target Score: > 8.0/10):
+```bash
+make lint
+```
